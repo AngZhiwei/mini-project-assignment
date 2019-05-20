@@ -14,4 +14,5 @@ http://localhost:8080/h2 (H2 Database)<br />
 (refer to application.properties for database setting)
 # Test Environment
 Chrome<br />
-Postman
+Postman<br />
+salary.csv (/resources/samples/salary.csv)
