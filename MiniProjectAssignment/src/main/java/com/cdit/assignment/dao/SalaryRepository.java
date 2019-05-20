@@ -11,6 +11,6 @@ import com.cdit.assignment.model.Salary;
 
 @Repository
 public interface SalaryRepository extends JpaRepository<Salary, Long> {
-	@Query(value = "SELECT * FROM SALARY s WHERE s.salary >= :minValue AND s.salary <= :maxValue", nativeQuery = true)
+	@Query(value="SELECT * FROM SALARY s WHERE s.salary >= :minValue AND s.salary <= :maxValue", nativeQuery=true)
 	public List<Salary> getSalaryWithinRange(@Param("minValue") double minValue, @Param("maxValue") double maxValue);
 }

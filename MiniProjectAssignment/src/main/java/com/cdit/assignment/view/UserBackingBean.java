@@ -50,27 +50,36 @@ public class UserBackingBean {
 			List<Salary> salaryList = new ArrayList<Salary>();
 			
 			for(String record : records) {
-				String[] data = record.split(DELIMITER);
-				System.out.println("Record: " + record);
-				
-				Person person = new Person(data[0]);
-				boolean personSaved = savePerson(person);
-				
-				if(personSaved) {
-					System.out.println(person.getName() + " record successfully saved to database");
-					Salary salary = new Salary(person, Double.valueOf(data[1]));
-					boolean salarySaved = saveSalary(salary);
+				try {
+					String[] data = record.split(DELIMITER);
+					System.out.println("Record: " + record);
 					
-					if(salarySaved) {
-						System.out.println(salary.getPerson().getName() + " salary record successfully saved to database");
-						salaryList.add(salary);
+					String name = data[0];
+					double salaryValue = Double.valueOf(data[1]);
+					
+					Person person = new Person(name);
+					boolean personSaved = savePerson(person);
+					
+					if(personSaved) {
+						System.out.println(person.getName() + " record successfully saved to database");
+						Salary salary = new Salary(person, salaryValue);
+						boolean salarySaved = saveSalary(salary);
+						
+						if(salarySaved) {
+							System.out.println(salary.getPerson().getName() + " salary record successfully saved to database");
+							salaryList.add(salary);
+						}
+						else {
+							System.out.println("Error occurred while saving " + salary.getPerson().getName() + " salary record");
+						}
 					}
 					else {
-						System.out.println("Error occurred while saving " + salary.getPerson().getName() + " salary record");
+						System.out.println("Error occurred while saving " + person.getName() + " salary record");
 					}
 				}
-				else {
-					System.out.println("Error occurred while saving " + person.getName() + " salary record");
+				catch(Exception e) {
+					e.printStackTrace();
+					continue;
 				}
 			}
 			
